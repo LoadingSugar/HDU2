@@ -1,0 +1,33 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+ typedef struct list{
+    int data;
+    struct list *next;
+}list;
+int main()
+{
+    list *l;
+    int n=10;
+    l=(list*)malloc(sizeof(struct list));
+    l->next=l;
+    l->data=1;
+    for(int i=2;i<=n;i++){
+        list * p;
+        p=(list*)malloc(sizeof(list));
+        p->data=i;
+        p->next=l->next;
+        l->next=p;
+        l=p;
+    }
+    l=l->next;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+                printf("%4d",l->data);
+                l=l->next;
+        }
+        printf("\n");
+        l=l->next;
+    }
+    return 0;
+}

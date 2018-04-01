@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<string.h>
+void merge(int a[],int base,int mid,int top){
+    int L1=mid-base+1;
+    int L2=top-mid;
+    int b[L1],c[L2];
+    for(int i=0;i<L1;i++)b[i]=a[base+i];
+    for(int j=0;j<L2;j++)c[j]=a[mid+1+j];
+    int i=0,j=0,k=base;
+    while(i<L1&&j<L2){
+        if(b[i]<=c[j]){
+            a[k++]=b[i++];
+        }
+        else
+            a[k++]=c[j++];
+    }
+    while(i<L1)
+            a[k++]=b[i++];
+    while(j<L2)
+            a[k++]=c[j++];
+}
+void me(int a[],int base,int top){
+    if(base<top){
+        int mid=(base+top)/2;
+        me(a,base,mid);
+        me(a,mid+1,top);
+        merge(a,base,mid,top);
+    }
+}
+int main(){
+    FILE *f;
+    int i=0;
+    int a[20];
+    if((f=fopen("D:\\Code\\HDU\\a.txt","r"))!=NULL){
+        while(!feof(f))
+            fscanf(f,"%d",&a[i++]);
+        fclose(f);
+    }
+    else
+        printf("error\n");
+    me(a,0,i);
+    for(int j=0;j<i;j++)
+        printf("%d\n",a[j]);
+    printf("\n");
+    return 0;
+}

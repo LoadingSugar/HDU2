@@ -1,0 +1,390 @@
+#include <iostream>
+#include <algorithm>
+#include <string.h>
+#include <stdio.h>
+#define isRein(x) ((x%100!=0)&&(x%4==0)) || (x%400 ==0)?1:0
+using namespace std;
+/*
+    题目：日期差值
+
+*/
+int dayOfMonth[13][2] =
+{
+  0,0,// 便于直接从1月开始访问
+  31,31,
+  28,29,
+  31,31,
+  30,30,
+  31,31,
+  30,30,
+  31,31,
+  31,31,
+  30,30,
+  31,31,
+  30,30,
+  31,31
+};
+
+struct Date
+{
+    int Year;
+    int Month;
+    int Day;
+    void nextDay()
+    {
+        if (++Day > dayOfMonth[Month][isRein(Year)])
+        {
+            Day = 1;
+            Month ++ ;
+        }
+        if (Month>12)
+        {
+            Month = 1;
+            Year ++;
+        }
+
+
+    }
+};
+int buffer[5000][12][31];
+void preProcess()
+{
+    Date tmp ;
+    tmp.Day = 1;
+    tmp.Month = 1;
+    tmp.Year = 0;
+    int c = 1;
+    while (tmp.Year < 5000)
+    {
+        buffer[tmp.Year][tmp.Month][tmp.Day] = c;
+        c++;
+        tmp.nextDay();
+    }
+}
+int main()
+{
+    preProcess();
+    int y1,y2,m1,m2,d1,d2;
+    while ( scanf("%4d%2d%2d",&y1,&m1,&d1)!=EOF )
+    {
+        scanf("%4d%2d%2d",&y2,&m2,&d2);
+        int ans = abs(buffer[y1][m1][d1]-buffer[y2][m2][d2]);
+        printf("%d\n",ans+1);
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <algorithm>
+#include <string.h>
+#include <stdio.h>
+#define isRein(x) ((x%100!=0)&&(x%4==0)) || (x%400 ==0)?1:0
+using namespace std;
+/*
+    题目：今年的第几天
+    思路：减去本年的元旦那一天
+
+*/
+int dayOfMonth[13][2] =
+{
+  0,0,// 便于直接从1月开始访问
+  31,31,
+  28,29,
+  31,31,
+  30,30,
+  31,31,
+  30,30,
+  31,31,
+  31,31,
+  30,30,
+  31,31,
+  30,30,
+  31,31
+};
+
+struct Date
+{
+    int Year;
+    int Month;
+    int Day;
+    void nextDay()
+    {
+        if (++Day > dayOfMonth[Month][isRein(Year)])
+        {
+            Day = 1;
+            Month ++ ;
+        }
+        if (Month>12)
+        {
+            Month = 1;
+            Year ++;
+        }
+
+
+    }
+};
+int buffer[5000][12][31];
+void preProcess()
+{
+    Date tmp ;
+    tmp.Day = 1;
+    tmp.Month = 1;
+    tmp.Year = 0;
+    int c = 1;
+    while (tmp.Year < 5000)
+    {
+        buffer[tmp.Year][tmp.Month][tmp.Day] = c;
+        c++;
+        tmp.nextDay();
+    }
+}
+int main()
+{
+    preProcess();
+    int y1,d1,m1;
+    while ( scanf("%4d %2d %2d",&y1,&m1,&d1)!=EOF )
+    {
+        int ans = abs(buffer[y1][m1][d1]-buffer[y1][1][1]);
+        printf("%d\n",ans+1);
+    }
+    return 0;
+}
+
+
+
+
+
+
+#include <iostream>
+#include <algorithm>
+#include <string.h>
+#include <stdio.h>
+#define isRein(x) ((x%100!=0)&&(x%4==0)) || (x%400 ==0)?1:0
+using namespace std;
+/*
+    题目：日期差值
+
+*/
+int dayOfMonth[13][2] =
+{
+  0,0,// 便于直接从1月开始访问
+  31,31,
+  28,29,
+  31,31,
+  30,30,
+  31,31,
+  30,30,
+  31,31,
+  31,31,
+  30,30,
+  31,31,
+  30,30,
+  31,31
+};
+
+struct Date
+{
+    int Year;
+    int Month;
+    int Day;
+    void nextDay()
+    {
+        if (++Day > dayOfMonth[Month][isRein(Year)])
+        {
+            Day = 1;
+            Month ++ ;
+        }
+        if (Month>12)
+        {
+            Month = 1;
+            Year ++;
+        }
+
+
+    }
+};
+int buffer[5000][12][31];
+void preProcess()
+{
+    Date tmp ;
+    tmp.Day = 1;
+    tmp.Month = 1;
+    tmp.Year = 0;
+    int c = 1;
+    while (tmp.Year < 5000)
+    {
+        buffer[tmp.Year][tmp.Month][tmp.Day] = c;
+        c++;
+        tmp.nextDay();
+    }
+}
+int main()
+{
+    preProcess();
+    int y1,num;
+    while ( scanf("%4d %d",&y1,&num)!=EOF )
+    {
+        int yuandan = buffer[y1][1][1];
+        int today = yuandan + num -1 ;
+        for (int i = 1 ; i < 13 ;i++)
+            for (int j = 1;j < 32 ; j++)
+        {
+            if (today == buffer[y1][i][j])
+                printf("%d-%02d-%02d\n",y1,i,j); // 控制输出格式，填充0
+        }
+
+
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <algorithm>
+#include <string.h>
+#include <stdio.h>
+#define isLeap(x) (x%100 != 0 && x%4 == 0)||(x % 400 == 0)?1:0
+using namespace std;
+/*
+    题目：Day ofweek
+    用时：
+    思路：1. 月份和星期日的转换器:利用字符串数组的索引对应字符串
+        2. 已知：今天是星期四 2018 3/8
+        3. 求：今天和求取的那天差了几天，以7位倍数循环
+        4. 这两天谁在前，谁在后，如何通过7来求星期几
+
+*/
+
+    char tm[13][10] = {
+    "",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+    };
+
+    char tw[7][10] = {
+    "Sunday", // 0 注意这里Sunday是0
+    "Monday", // 1
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+    };
+
+int dayOfMonth[13][2]
+{
+    0,0,
+    31,31,
+    28,29,
+    31,31,
+    30,30,
+    31,31,
+    30,30,
+    31,31,
+    31,31,
+    30,30,
+    31,31,
+    30,30,
+    31,31
+};
+struct Date
+{
+    int year;
+    int month;
+    int day;
+    void nextDay()
+    {
+        if (++day > dayOfMonth[month][isLeap(year)])
+        {
+            day = 1;
+            month++;
+        }
+        if (month > 12 )
+        {
+            month = 1;
+            year ++;
+        }
+    }
+};
+
+int buffer[3001][13][31];
+void preProcessing()
+{
+    int c = 1;
+    Date date;
+    date.year = 0 ;
+    date.month = 1;
+    date.day = 1;
+    while ( date.year < 3001)
+    {
+        buffer[date.year][date.month][date.day] = c;
+        c++;
+        date.nextDay();
+    }
+}
+int numberMonth (char month[])
+{
+    for (int i=1 ;i<13;i++)
+    {
+        if (strcmp(tm[i],month)==0)
+        {
+            return i;
+        }
+    }
+    return 0;
+}
+
+int main()
+{
+    preProcessing();
+    int day,year;
+    char Month[10];
+    int today = buffer[2012][7][16];
+    int month,thatDay;
+    while (scanf("%d %s %d",&day,Month,&year)!=EOF)
+    {
+        month = numberMonth(Month);
+        thatDay = buffer[year][month][day];
+        // 如何根据差值计算星期几thatDayw?
+        int days = thatDay - today +1;
+        printf("%s\n",tw[(days%7+7)%7]);
+
+
+
+    }
+    return 0;
+}
+
+
+
+
+
+
+

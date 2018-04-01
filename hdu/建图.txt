@@ -1,0 +1,66 @@
+#include <stdio.h>  
+#include <stdlib.h>  
+#include <string.h>  
+#include <iostream>  
+#include <algorithm>  
+using namespace std;  
+int N,M;  
+struct node{  
+    int to,w;  
+    node *next;  
+};  
+struct edge{  
+    node *first;  
+}G[105];  
+int main(){  
+    int i,j,x,y,z;  
+    scanf("%d%d",&N,&M);  
+    for(i=0;i<M;i++){  
+        scanf("%d%d%d",&x,&y,&z);  
+        node *p=new node;  
+        p->to=y;  
+        p->w=z;  
+        p->next=G[x].first;                     //每条边连在当前节点的前一条边上  
+        G[x].first=p;                           //形成一个链式储存结构，first为当前节点的最后  
+    }                                           //一条边  
+    node *k;  
+    for(i=1;i<=N;i++){                          //图的遍历  
+        for(k=G[i].first;k!=NULL;k=k->next)       
+        printf("%d %d %d\n",i,k->to,k->w);  
+    }  
+    return 0;  
+}  
+
+
+
+
+
+
+#include <vector>  
+#include <stdio.h>  
+#include <stdlib.h>  
+#include <string.h>  
+#include <iostream>  
+#include <algorithm>  
+using namespace std;  
+int N,M;  
+struct node{  
+    int to,w;  
+};  
+vector<node> G[105];  
+int main(){  
+    int i,j,x,y,z;  
+    scanf("%d%d",&N,&M);  
+    for(i=0;i<M;i++){  
+        scanf("%d%d%d",&x,&y,&z);  
+        G[x].push_back((node){y,z});  
+    }  
+    for(i=1;i<=N;i++){  
+        for(j=0;j<G[i].size();j++)  
+        printf("%d %d %d\n",i,G[i][j].to,G[i][j].w);  
+    }  
+    return 0;  
+}  
+
+
+

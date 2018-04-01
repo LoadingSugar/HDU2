@@ -1,0 +1,14 @@
+#include<stdio.h>
+int main()
+{
+    int a[10]={1,2,5,6,7,18,21,23,43,433};
+    int base=0,top=9,mid,target;
+    scanf("%d",&target);
+    while(base<=top){
+        mid=(top+base)/2;
+        if(target>=a[mid])base=mid+1;
+        else top=mid-1;
+    }
+    printf("%d\n",top);
+	return 0;
+}

@@ -1,0 +1,202 @@
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include 
+const int N = 1010;
+using namespace std;
+char a[100];
+struct node{
+    char data;
+    node *left;
+    node *right;
+};
+struct node *make()
+{
+    char c;
+    node *st;
+    c = getchar();
+    if(c=='X')
+        st = NULL;
+    else
+    {
+        st = (struct node *)malloc(sizeof(struct node));
+        st ->data = c;//已知为先序遍历，先填充根节点
+        st ->left = make();//递归形式填充左分支
+        st->right = make();//递归形式填充左分支
+    }
+    return st;
+}
+ 
+void First_Order(struct node *t )//先序遍历的递归形式
+{
+    if(t==NULL)
+        return ;
+    printf("%c -> ",t->data);
+    First_Order(t->left);
+    First_Order(t->right);
+}
+void First_Order_1(struct node *t)//先序遍历非递归形式
+{
+    struct node *stk[N],*p;
+    int top = -1;
+    if(t!=NULL)
+    {
+        top++;
+        stk[top] = t; //根节点进栈
+        while(top>-1)
+        {
+            p = stk[top];//出栈并访问该节点
+            top--;
+            printf("%c -> ",p->data);
+            if(p->right!=NULL)  //右孩子进栈
+            {
+                top++;
+                stk[top] = p->right;
+            }
+            if(p->left!=NULL)//左孩子进栈
+            {
+                top++;
+                stk[top] = p->left;
+            }
+        }
+    }
+}
+void Mid_Order(struct node *t)//中序遍历递归形式
+{
+    if(t==NULL)
+        return ;
+    Mid_Order(t->left);
+    printf("%c -> ",t->data);
+    Mid_Order(t->right);
+}
+ 
+void Mid_Order_1(struct node *t)//先序遍历非递归形式
+{
+    struct node *stk[N],*p;
+    int top = -1;
+    if(t!=NULL)
+    {
+         p = t;
+ 
+        while(top>-1 ||p!=NULL )// 遍历左分支
+        {
+           while(p!=NULL)     // 将当前t节点的左分支，全部压入栈
+           {
+               top++;
+               stk[top] = p;
+               p = p->left;
+           }
+           //while结束后，栈顶元素可能没有左分支节点或者左分支节点已经访问完毕
+           if(top>-1)
+           {
+               p = stk[top];//出栈 ，并打印
+               top--;
+               printf("%c -> ",p->data);
+               p = p->right;  // 遍历右分支
+           }
+        }
+    }
+}
+ 
+void Last_Order(struct node *t)//后序遍历递归形式
+{
+    if(t==NULL)
+        return ;
+    Last_Order(t->right);
+    Last_Order(t->left);
+    printf("%c -> ",t->data);
+}
+ 
+ 
+void Print_Leaf(struct node *t)
+{
+    if(t!=NULL)
+    {
+        if(t->left==NULL && t->right==NULL)
+        {
+            printf("%c  ",t->data);
+        }
+            Print_Leaf(t->left);//访问左分支的叶子节点
+            Print_Leaf(t->right);//访问右分支的叶子节点
+    }
+}
+ 
+void Ceng_Order(struct node *t)//层次遍历，采用环形队列来实现
+{
+    struct node *que[N],*p;
+    int f,r;   //队列的头指针 和 尾指针
+    f = -1; r = -1;
+    que[++r] = t;  //根节点入队
+    while(f!=r)
+    {
+        f = (f + 1)% N; //防止队溢出
+        p = que[f]; //队列头结点 出队
+        printf("%c -> ",p->data);
+        if(p->left !=NULL)  // 将其左孩子 压入队列
+        {
+            r = (r + 1 )% N;
+            que[r] = p->left;
+        }
+        if(p->right !=NULL)  // 将其右孩子 压入队列
+        {
+            r = (r + 1 )% N;
+            que[r] = p -> right;
+        }
+    }
+}
+ 
+int shendu(struct node *t)
+{
+    int x=0,y = 0;
+    if(t!=NULL)
+    {
+        x = shendu(t->left);
+        y = shendu(t->right);
+ 
+        if(x>y)
+            return(x+1);
+        else
+            return (y+1);
+    }
+    else
+        return 0;
+}
+ 
+/*bool Like(struct node *t1,struct node *t2)//判断俩颗树是否相似
+{
+    bool like1,like2;
+    if(t1==NULL && t2 ==NULL)
+        return true; //所有对应的分支都相同
+    else if(t1==NULL || t2 ==NULL)
+        return false;
+    else
+    {
+        like1 = Like(t1->left,t2->left);
+        like2 = Like(t1->right,t2->left);
+        return (like1 && like2); //返回的是 like1 与 like2的 与
+    }
+}*/
+ 
+int main()
+{
+    struct node *t;
+    t = make();//建树
+ 
+    puts("先序遍历,递归形式");
+    First_Order(t);
+    cout<<"END"<<endl<<endl;
+     puts("非递归形式");
+     first_order_1(t);
+    cout<<"end"<<endl<<endl;
+    puts("中序遍历，递归形式");
+    mid_order(t);
+    mid_order_1(t);
+    puts("后序遍历，递归形式");
+    last_order(t);
+    puts("层次遍历");
+    ceng_order(t);
+    puts("判断俩个二叉树是否相似");//输入两个二叉树.....="" bool="" m="Like(t1,t2);" if(m="=1)" printf("yes\n");="" else="" printf("no\n");
+    cout<<endl;
+    puts("深度");
+    int="" du="shendu(t);" printf("%d\n",du);="" puts("叶子节点为");="" print_leaf(t);="" cout<<endl<<endl;="" return="" 0;="" }

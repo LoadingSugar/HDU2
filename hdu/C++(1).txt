@@ -1,0 +1,1923 @@
+一、求两个数的最大公约数和最小公倍数
+#include<stdio.h>
+int main()
+{
+	int m,n,t,r;
+	printf("input 2 number:");
+	scanf("%d %d",&m,&n);
+	if(m<n)
+	{
+		t=m;
+		m=n;
+		n=t;
+	}
+	int p;
+	p=m*n;
+	while(n!=0)
+	{    r=m%n;
+	     m=n;
+	     n=r;
+	}
+	printf("最大公约数是%d:",m);
+  	printf("最小公倍数是%d:",p/m);
+	printf("\n");
+	return 0;
+
+}
+二、斐波那契数列（10个数）
+#include<stdio.h>
+int main()
+{
+   int a,b;
+   int c,n;
+   a=1;b=1;
+   printf("%d %d ",a,b);
+   for(n=3;n<10;n++)
+   {
+	   c=a+b;
+	   a=b;
+	   b=c;
+	   printf("%d ",c);
+   }
+	printf("\n");
+	return 0;
+}
+三、求 Sn=a+aa+aaa....的值。
+#include<stdio.h>
+int main()
+{
+   int a,n,i=1,sn=0,tn=0;
+   printf("a,n=");
+   scanf("%d,%d",&a,&n);
+   while(i<=n)
+   {
+	  tn=tn+a;
+	  sn+=tn;
+	  a=a*10;
+	  ++i;
+   }
+   printf("a+aa+aaa......=%d\n",sn);
+	printf("\n");
+	return 0;
+
+}
+四、水仙花数
+#include<stdio.h>
+int main()
+{
+   int i,j,k,n;
+   printf("parcissus numbers are:");
+   for(n=100;n<1000;n++)
+   {
+	   i=n%10;
+	   j=n/10%10;
+	   k=n/100;
+	   if(i*i*i+j*j*j+k*k*k==n)
+	       printf("%d ",n);
+   }
+	printf("\n");
+	return 0;
+}
+五、完数
+#include<stdio.h>
+int main()
+{
+   int n,s,i;
+   for(n=2;n<1000;n++)
+   { s=0;
+      for(i=1;i<n;i++)
+         if((n%i)==0)
+            s+=i;
+        if(s==n)
+        {
+	   printf("%d,its factors are ",n);
+	   for(i=1;i<n;i++)
+	     if((n%i)==0)
+	       printf("%d ",i);
+	          printf("\n");
+        }
+   }
+	return 0;
+}
+六、一个球从100m高度自由落下，每次落地后反弹回原高度的一半，再落下，再反弹，求它在第10次落地时，共经过多少米，第10次反弹多高。
+#include<stdio.h>
+int main()
+{
+  double sn=100,hn=sn/2;
+  int n;
+  for(n=2;n<=10;n++)
+  {
+	  sn=sn+2*hn;
+	  hn=hn/2;
+  }
+  printf("第十次落地时候共经过%f米\n",sn);
+  printf("第十次反弹%f米\n",hn);
+
+	return 0;
+
+}
+七、猴子吃桃
+#include<stdio.h>
+int main()
+{
+  int day,x1,x2;
+  day=9;
+  x2=1;
+  while(day>0)
+  {
+	  x1=(x2+1)*2;
+	  x2=x1;
+	  day--;
+  }
+  printf("total=%d\n",x1);
+	return 0;
+}
+八、
+           *
+          ***
+         *****
+        *******
+         *****
+          ***
+           *
+#include<stdio.h>
+int main()
+{
+  int i,j,k;
+  for(i=0;i<=3;i++)
+  {
+	  for(j=0;j<=2-i;j++)
+	     printf(" ");
+	  for(k=0;k<=2*i;k++)
+             printf("*");
+	     printf("\n");
+  }
+   for(i=0;i<=2;i++)
+   {
+      for(j=0;j<=i;j++)
+	 printf(" ");
+      for(k=0;k<=4-2*i;k++)
+	 printf("*");
+	 printf("\n");
+   }
+	return 0;
+}
+九、给出一个不多于5位数的正整数，求出它是几位数，分别输出每一位数字，按逆序输出各位数字。
+#include<stdio.h>
+#include<math.h>
+void main()
+{
+	int num,indiv,ten,hundred,thousand,ten_thousand,place;
+	printf("请输入一个整数（0—99999）：");
+	scanf("%d",&num);
+	if(num>9999)
+		place=5;
+	else if(num>999)
+		place=4;
+	else if(num>99)
+		place=3;
+	else if(num>9)
+		place=2;
+	else place=1;
+	printf("位数:%d\n",place);
+	printf("每位数字为:");
+        ten_thousand=num/10000;
+      	thousand=(int)(num-ten_thousand*10000)/1000;
+	hundred=(int)(num-ten_thousand*10000-thousand*1000)/100;
+	ten=(int)(num-ten_thousand*10000-thousand*1000-hundred*100)/10;
+	indiv=(int)(num-ten_thousand*10000-thousand*1000-hundred*100-ten*10);
+	switch(place)
+	{
+	case 5:printf("%d,%d,%d,%d,%d",ten_thousand,thousand,hundred,ten,indiv);
+		printf("\n反序数字为:");
+		printf("%d%d%d%d%d\n",indiv,ten,hundred,thousand,ten_thousand);
+		break;
+	case 4:printf("%d,%d,%d,%d",thousand,hundred,ten,indiv);
+			printf("\n反序数字为:");
+	printf("%d%d%d%d\n",indiv,ten,hundred,thousand);
+		break;
+	case 3:printf("%d,%d,%d",hundred,ten,indiv);
+		printf("\n反序数字为:");
+         printf("%d%d%d\n",indiv,ten,hundred);
+              break;
+	case 2:printf("%d,%d",ten,indiv);
+	   printf("\n反序数字为:");
+        printf("%d%d\n",indiv,ten);
+          break;
+    case 1: printf("%d",indiv);
+	printf("\n反序数字为:");
+    printf("%d\n",indiv);
+	}
+}
+十、以存储结构编写不用栈进行后序遍历的递推形式的算法
+   void PostOrder(BiTree root)
+   { 
+      p=root;
+      while(p)
+      switch(p->mark)
+	  {
+		  case 0:
+			  p->mark=1;
+			  if(p->lchild)
+				  p=p->lchild;
+			  break;
+		  case 1:
+			  p->mark=2;
+			  if(p->rchild)
+				  p=p->rchild;
+			  break;
+		  case 2:
+			  p->mark=0;
+			  visit(*p);
+			  p=p->parent;
+			  break;
+         defalut: ;
+	  }
+    }
+十一、试写一递归算法，由这种广义表表示的字符序列构造树的孩子-兄弟链表
+Status CreateF(CSTree &FS)
+{
+	if(CreateT(FS)==(OVERFLOW)
+		return ERROR;
+	p=FS;
+	while(ch==',')
+	{	CreateT(p->nextsibling);
+     	p=p->nextsibling=NULL;
+	}
+	p->nextsibling=NULL;
+	return OK;
+}
+Status CreateF(CSTree &FS)
+{
+	scanf(ch);
+	if(!(T=(CSTree)malloc(sizeof(CSNode))))
+		return OVERFLOW;
+	T->data=ch;
+	scanf(ch);
+	if(ch!='(')T->firstchild=NULL;
+	else
+	{
+		CreateF(T->firstchild);
+		scanf(ch);
+	}
+	return OK;
+}
+十二、编写一个PRINT函数，输出一个学生的成绩数组，该数组中有5个学生的数据记录，每个记录包括num,name,score[3],用主函数输入这些记录，用Print函数输出这些记录
+#include<stdio.h>
+#define N 5
+struct student
+{
+	char num[6];
+	char name[8];
+	int score[6];
+}stu[N];
+int main()
+{
+	void print(struct student stu[6]);
+	int i,j;
+	for(i=0;i<N;i++)
+	{
+		printf("\ninput score of student %d:\n",i+1);
+		printf("NO.");
+		scanf("%s",stu[i].num);
+		printf("name:");
+		scanf("%s",stu[i].name);
+		for(j=0;j<3;j++)
+		{
+			printf("score %d:",j+1);
+			scanf("%d",&stu[i].score[j]);
+		}
+		printf("\n");
+	}
+	print(stu);
+	return 0;
+}
+void print(struct student stu[6])
+{
+	int i,j;
+	printf("\n NO.name score1 score2 score3\n");
+	for(i=0;i<N;i++)
+	{
+		printf("%5s%10s",stu[i].num,stu[i].name);
+		for(j=0;j<3;j++)
+			printf("%9d",stu[i].score[j]);
+		printf("\n");
+	}
+}
+十三、从键盘输入一个字符串，将其中的小写字母全部转换成大写字母，然后输出到一个磁盘文件“test”中保存。输入的字符串以“！”结束
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int main()
+{
+	FILE *fp;
+	char str[100];
+	int i=0;
+	if((fp=fopen("al","w"))==NULL)
+    {
+		printf("can not open file\n");
+		exit(0);
+	}
+    printf("input a string:\n");
+	gets(str);
+	while(str[i]!='!');
+	{
+		if(str[i]>='a'&&str[i]<='z')
+			str[i]=str[i]-32;
+		fputc(str[i],fp);
+		i++;
+	}
+	fclose(fp);
+	fp=fopen("al","r");
+	fgets(str,strlen(str)+1,fp);
+	printf("%s\n",str);
+	fclose(fp);
+	return 0;
+}
+十四、有五个学生，每个学生有三门课程的成绩，从键盘输入学生数据（包括学号，姓名，3门课程成绩），计算出平均成绩，将原有数据和计算出的平均分数放在磁盘文件“stud”中。
+#include<stdio.h>
+struct student
+{
+	char num[10];
+	char name[8];
+	int  score[3];
+	float ave;
+}stu[5];
+int main()
+{
+	int i,j,sum;
+	FILE *fp;
+	for(i=0;i<5;i++)
+	{
+		printf("\ninput score of student %d:\n",i+1);
+		printf("NO.:");
+		scanf("%s",stu[i].num);
+		printf("namd:");
+		scanf("%s",stu[i].name);
+		sum=0;
+		for(j=0;j<3;j++)
+		{
+			printf("score %d:",j+1);
+			scanf("%d",&stu[i].score[j]);
+			sum+=stu[i].score[j];
+		}
+		stu[i].ave=sum/3.0;
+	}
+	fp=fopen("stud","w");
+     for(i=0;i<5;i++)
+     if(fwrite(&stu[i],sizeof(struct student),1,fp)!=1)
+		 printf("file write error\n");
+	 fclose(fp);
+	 fp=fopen("stud","r");
+for(i=0;i<5;i++)
+{
+	fread(&stu[i],sizeof(struct student),1,fp);
+	printf("\n%s,%s,%d,%d,%d,%6.2f\n",stu[i].num,stu[i].name,stu[i].score[0],stu[i].score[1],stu[i].score[2],stu[i].ave);
+}
+	    return 0;
+}
+十五：回文数
+#include<stdio.h>
+int main()
+{  
+	int n,k,m,s;
+	int count=0;
+	for(n=100;n<1000;n++)
+	{
+		k=n;
+		s=0;
+	  while(k)
+	  {
+		  s=s*10+k%10;
+		  k=k/10;
+	  }
+	  if(n==s)
+	  { printf("%d ",s);
+	   count++;
+	  }
+
+	}
+	  printf("\n共有%d个回文数",count);
+	  printf("\n");
+	return 0;
+}
+
+1：将最长的单词输出
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	int al(char);
+	int lon(char[]);
+	int i;
+	char line[100];
+	printf("input one line:\n");
+	gets(line);
+	printf("the longest word is :");
+	for(i=lon(line);al(line[i]);i++)
+		printf("%c",line[i]);
+	printf("\n");
+	return 0;
+}
+int al(char c)
+{
+	if((c>='a'&&c<='z')||(c>='A'&&c<='Z'))
+		return (1);
+	else return (0);
+}
+int lon(char string[])
+{
+	int len=0,length=0,place=0,point,flag=1;
+	int i;
+   for(i=0;i<=strlen(string);i++)
+	   if(al(string[i]))
+		   if(flag)
+		   {
+			   point=i;
+			   flag=0;
+		   }
+		   else len++;
+	   else 
+	   {
+		   flag=1;
+		   if(len>=length)
+		   {
+			   length=len;
+			   place=point;
+			   len=0;
+		   }
+	   }
+	   return (place);	
+}
+2：二维数组中的鞍点
+#include<stdio.h>
+#define N 4 
+#define M 5
+int main()
+{
+	int i,j,k,a[N][M],max,maxj,flag;
+	printf("please input matrix:\n");
+	for(i=0;i<N;i++)
+	  for(j=0;j<M;j++)
+		  scanf("%d",&a[i][j]);
+	  for(i=0;i<N;i++)
+	  {
+		  max=a[i][0];
+		  maxj=0;
+		  for(j=0;j<M;j++)
+		   if(a[i][j]>max)
+	          {
+		    max=a[i][j];
+		    maxj=j;
+
+	          }
+		 flag=1;
+	      for(k=0;k<N;k++)
+	    if(max>a[k][maxj])
+	    {
+                flag=0;
+	      continue;
+            }
+        if(flag)
+	{
+	 printf("a[%d][%d]=%d\n",i,maxj,max);
+	 break;
+        } 
+    }
+	if(!flag)
+	printf("it is not exist!\n");
+         return 0;
+	 
+}
+
+
+3：输入一个数用折半查找该数是数组中第几个元素的值：
+#include<stdio.h>
+#define N 15
+int main()
+{
+	int i,number,top,bott,mid,loca,a[N],flag=1,sign;
+	char c;
+	printf("enter data:\n");
+	scanf("%d",&a[0]);
+	i=1;
+	while(i<N)
+	{
+		scanf("%d",&a[i]);
+		if(a[i]>=a[i-1])
+			i++;
+		else 
+			printf("enter this data again:\n");
+	}
+	printf("\n");
+	for(i=0;i<N;i++)
+		printf("%5d",a[i]);
+		printf("\n");
+	while(flag)
+	{
+		printf("input number to look for:");
+		scanf("%d",&number);
+		sign=0;
+		top=0;
+		bott=N-1;
+		if((number<a[0])||(number>a[N-1]))
+			loca=-1;
+		while((!sign)&&(top<=bott))
+		{
+			mid=(bott+top)/2;
+			if(number==a[mid])
+			{
+				loca=mid;
+				printf("has found %d,its position is %d\n",number,loca+1);
+				sign=1;
+
+			}
+			else if(number<a[mid])
+				bott=mid-1;
+			else 
+				top=mid+1;
+			
+		}
+          if(!sign||loca==-1)
+			  printf("connot find %d.\n",number);
+		  printf("contine or not (Y/N)?");
+		  scanf("%c",&c);
+		  if(c=='N'||c=='n')
+			  flag=0;
+	}
+	
+
+ return 0;
+}
+
+
+4：输入一个数，按原来排序的规律将它插入数组中
+#include<stdio.h>
+int main()
+{
+	int a[11]={1,4,6,9,13,16,19,28,40,100};
+	int temp1,temp2,number,end,i,j;
+	printf("array a:\n");
+	for(i=0;i<10;i++)
+		printf("%5d",a[i]);
+	printf("\n");
+	printf("insert data:");
+	scanf("%d",&number);
+	end=a[9];
+	if(number>end)
+		a[10]=number;
+	else 
+	{
+		for(i=0;i<10;i++)
+		{
+			if(a[i]>number)
+			{
+				temp1=a[i];
+				a[i]=number;
+				for(j=i+1;j<11;j++)
+				{
+					temp2=a[j];
+					a[j]=temp1;
+					temp1=temp2;
+				}
+				break;
+			}
+		}
+	}
+	printf("Now array a:\n");
+		for(i=0;i<11;i++)
+		printf("%5d",a[i]);
+			printf("\n");
+			return 0;
+}
+5：杨辉三角形
+#include<stdio.h>
+#define N 10
+int main()
+{
+	int i,j,a[N][N];
+	for(i=0;i<N;i++)
+	{
+		a[i][i]=1;
+		a[i][0]=1;
+	}
+	for(i=2;i<N;i++)
+		for(j=1;j<=i-1;j++)
+			a[i][j]=a[i-1][j-1]+a[i-1][j];
+		for(i=0;i<N;i++)
+		{
+			for(j=0;j<=i;j++)
+				printf("%6d",a[i][j]);
+			printf("\n");
+		}
+		printf("\n");
+		return 0;
+}
+6：魔方阵
+#include<stdio.h>
+int main()
+{
+	int a[15][15],i,j,k,p,n;
+	p=1;
+	while(p==1)
+	{
+		printf("enter n(n=--15):");
+		scanf("%d",&n);
+		if((n!=0)&&(n<=15)&&(n%2!=0))
+			p=0;
+	}
+	for(i=1;i<=n;i++)
+		for(j=1;j<=n;j++)
+			a[i][j]=0;
+		j=n/2+1;
+		a[1][j]=1;
+		for(k=2;k<=n*n;k++)
+		{
+			i=i-1;
+			j=j+1;
+			if((i<1)&&(j>n))
+			{
+				i=i+2;
+				j=j-1;
+			}
+			else 
+			{
+				if(i<1)
+				i=n;
+				if(j>n)
+				j=1;
+                         }
+			if(a[i][j]==0)
+				a[i][j]=k;
+			else
+			{
+				i=i+2;
+			    j=j-1;
+			    a[i][j]=k;
+			}
+		}
+      for(i=1;i<=n;i++)
+	  {
+		  for(j=1;j<=n;j++)
+	          printf("%5d",a[i][j]);
+		  printf("\n");
+	  }
+	  return 0;
+}
+
+7：素数
+#include<stdio.h>
+void main()
+{
+	int i,n,flag;
+	int k=0;
+	for(n=2;n<100;n++)
+	{flag=1;
+		for(i=2;i<n;i++)
+		{
+			if(n%i==0)
+			{flag=0;break;}
+		}
+		if(flag==1)
+		{  printf("%5d",n);
+	      	     k++;
+	 	  if(k%5==0)
+		 printf("\n");
+		}
+		
+	
+
+	}
+}
+8：行列互换
+#include<stdio.h>
+void main()
+{
+	int i,j;
+	int t,a[10][10];
+	printf("请输入一组数：\n");
+	for(i=0;i<3;i++)
+	 for(j=0;j<3;j++)
+	  scanf("%d",&a[i][j]);
+    	      for(i=0;i<3;i++)
+		{ for(j=0;j<3;j++)
+		  printf("%5d",a[i][j]);
+		  printf("\n");
+		}
+		printf("convert array:\n");
+		for(i=0;i<10;i++)
+		{
+			for(j=i+1;j<10;j++)
+			{
+				t=a[i][j];
+				a[i][j]=a[j][i];
+				a[j][i]=t;
+			}
+		}
+        for(i=0;i<3;i++)
+		{ for(j=0;j<3;j++)
+		  printf("%5d",a[i][j]);
+		  printf("\n");
+		}
+}
+9：冒泡法
+#include<stdio.h>
+void main()
+{
+	int i,j,k;
+	int a[N];
+	printf("请输入一组数：\n");
+	for(i=0;i<10;i++)
+	 scanf("%5d",&a[i]);
+	for(i=0;i<10;i++)
+	printf("%5d",a[i]);
+	printf("\n");
+	for(i=0;i<10;i++)
+	{
+		for(j=0;j<9-i;j++)
+		{
+			if(a[j]>a[j+1])
+			{
+				k=a[j];
+				a[j]=a[j+1];
+				a[j+1]=k;
+			}
+		}
+	}
+	printf("请输入排序过的：\n");
+	for(i=0;i<10;i++)
+		printf("%5d",a[i]);
+		printf("\n");
+}
+（2）十个字符排序（冒泡法）
+#include<stdio.h>
+void main()
+{
+	int i,j,k;
+	char a[10];
+	printf("请输入一组数：\n");
+	 scanf("%s",&a);
+	for(i=0;i<10;i++)
+	printf("%c",a[i]);
+	printf("\n");
+	for(i=0;i<10;i++)
+	{
+		for(j=0;(j<9-i)&&(a[i]!='0');j++)
+		{
+			if(a[j]>a[j+1])
+			{
+				k=a[j];
+				a[j]=a[j+1];
+				a[j+1]=k;
+			}
+		}
+	}
+	printf("请输入排序过的：\n");
+	for(i=0;i<10;i++)
+		printf("%c",a[i]);
+		printf("\n");
+}
+
+10：插入法排序（升序）
+#include<stdio.h>
+void main()
+{
+	int i,j,t;
+	int a[10];
+	printf("请输入一组数：\n");
+	for(i=0;i<10;i++)
+	 scanf("%5d",&a[i]);
+	for(i=0;i<10;i++)
+	printf("%5d",a[i]);
+	printf("\n");
+	for(i=1;i<10;i++)
+	{  t=a[i];
+		for(j=i-1;j>=0 && t<a[j];j--)	
+			a[j+1]=a[j];
+			a[j+1]=t;
+		
+	}
+	printf("请输入排序过的：\n");
+	for(i=0;i<10;i++)
+		printf("%5d",a[i]);
+		printf("\n");
+}
+11：选择法排序
+#include<stdio.h>
+int main()
+{
+	int a[10];
+	int i,j,min,t;
+  printf("请输入10个数：");
+	for(i=0;i<10;i++)
+	scanf("%d",&a[i]);
+	printf("排序前的数：");
+	for(i=0;i<10;i++)
+	printf("%3d",a[i]);	
+	printf("\n");
+	for(i=0;i<9;i++)
+	{
+		min=i;
+		for(j=i;j<10;j++)	
+		  if(a[min]>a[j])
+		     min=j;
+		     t=a[i];
+		     a[i]=a[min];
+		     a[min]=t;
+	}
+	
+	for(i=0;i<10;i++)
+	printf("%3d",a[i]);	
+		printf("\n");
+   return 0;
+}
+
+
+12:用递归方法求N阶嘞让德多项式的值
+#include<stdio.h>
+int main()
+{
+	int x,n;
+	float p(int ,int);
+	printf("\ninput n &x:");
+	scanf("%d,%d",&n,&x);
+	printf("n=%d,x=%d\n",n,x);
+	printf("P%d(%d)=%6.2f\n",n,x,p(n,x));
+	return 0;
+}
+float p(int n,int x)
+{
+	if(n==0)
+	return 1;
+	else if(n==1)
+
+	 return x;
+	else
+		return(2*n-1)*x*p((n-1),x)-(n-1)*p((n-2),x)/n;
+}
+13：输入职工的姓名和职工号，按职工号由小到大排序，姓名顺序也随之改变，然后用折半查找法找出职工的姓名
+#include<stdio.h>
+#include<string.h>
+#define N 10
+int main()
+{
+	void input(int[],char name[][8]);
+	void sort(int[],char name[][8]);
+	void search(int ,int[],char name[][8]);
+	int num[N],number,flag=1,c;
+	char name[N][8];
+	input(num,name);
+	sort(num,name);
+	while(flag==1)
+	{
+		printf("\ninput number to look for:");
+		scanf("%d",&number);
+		search(number,num,name);
+		printf("continue or not (Y/N)?");
+		getchar();
+		c=getchar();
+		if(c=='N'||c=='n')
+		flag=0;
+
+	}
+	return 0;
+}
+void input(int num[],char name[N][8])
+{
+	int i;
+	for(i=0;i<N;i++)
+	{
+		printf("input NO.:");
+		scanf("%d",&num[i]);
+		printf("input name:");
+		getchar();
+		gets(name[i]);
+
+	}
+}
+void sort(int num[],char name[N][8])
+{
+      int i,j,min,temp1;
+	  char temp2[8];
+	  for(i=0;i<N-1;i++)
+	  {
+		  min=i;
+		  for(j=i;j<N;j++)
+			  if(num[min]>num[j])
+				  min=j;
+			  temp1=num[i];
+			  strcpy(temp2,name[i]);
+			  num[i]=num[min];
+			  strcpy(name[i],name[min]);
+			  num[min]=temp1;
+			  strcpy(name[min],temp2);
+	  }
+	  printf("\n result:\n");
+	  for(i=0;i<N;i++)
+		  printf("\n %5d%10s",num[i],name[i]);
+}
+void search(int n,int num[],char name[N][8])
+{
+	int top,bott,mid,loca,sign;
+	top=0;
+	bott=N-1;
+	loca=1;
+	sign=1;
+	if(n<num[0]||n>num[N-1])
+		loca=-1;
+	while((sign==1)&&(top<=bott))
+    {
+		mid=(top+bott)/2;
+		if(n==num[mid])
+		{
+			loca=mid;
+			printf("NO.%d,his name is %s.\n",n,name[loca]);
+			sign=-1;
+		}
+		else if(n<num[mid])
+              bott=mid-1;
+		else top=mid+1;
+	}
+	    if(sign==1||loca==-1)
+		printf("%d not been found.\n",n);
+}
+14：输入一个十六进制数，输出相应的十进制数
+#include<stdio.h>
+#define MAX 1000
+int main()
+{
+  int htoi(char s[]);
+  int c,i,flag,flag1;
+  char t[MAX];
+  i=0;
+  flag=0;
+  flag1=1;
+ printf("input a HEX number:");
+ while((c=getchar())!='\0'&& i<MAX&&flag1)
+ {
+	 if((c>='0'&&c<='9')||c>='a'&&c<='f'||c>='A'&&c<='F')
+	 {
+	   flag=1;
+	   t[i++]=c;
+	 }
+ 
+ else if(flag)
+ {
+	 t[i]='\0';
+	 printf("decimal number %d\n",htoi(t));
+	 printf("continue or not?");
+	 c=getchar();
+	 if(c=='N'||c=='n')
+		 flag=0;
+	 else 
+	 {
+		 flag=0;
+		 i=0;
+		 printf("\ninput a HEX number:");
+	 }
+ }
+
+}
+ return 0;
+}
+int htoi(char s[])
+{
+	int i,n;
+	n=0;
+	for(i=0;s[i]!='\0';i++)
+	{
+		if(s[i]>='0'&&s[i]<='9')
+	                n=n*16+s[i]-'0';
+		if(s[i]>='a'&&s[i]<='f')
+                        n =n*16+s[i]-'a'+10;
+		if(s[i]>='A'&&s[i]<='Z')
+			n=n*16+s[i]-'A'+10;
+	}
+	return(n);
+}
+15：用递归法将一个整数N转换成字符串，如：2345-》2 3 4 5
+#include<stdio.h>
+int main()
+{
+	void convert(int n);
+	int number;
+	printf("input an integer:");
+	scanf("%d",&number);
+	printf("output:");
+	if(number<0)
+	{
+		putchar('-');
+		putchar(' ');
+		number=-number;
+	}
+	convert(number);
+	printf("\n");
+	return 0;
+}
+void convert(int n)
+{
+	int i;
+	if((i=n/10)!=0)
+	convert(i);
+	putchar(n%10+'0');
+	putchar(32);
+}
+16：给出年、月、日，计算该日是该年的第几天
+#include<stdio.h>
+int main()
+{
+	int sum_day(int month,int day);
+	int leap(int year);
+	int year,month,day,days;
+	printf("input date(year,month,day):");
+	scanf("%d %d %d",&year,&month,&day);
+	printf("%d/%d/%d",year,month,day);
+	days=sum_day(month,day);
+	if(leap(year)&&month>=3)
+		days=days+1;
+	printf("is the %dth day in this year.\n",days);
+	return 0;
+}
+int sum_day(int month,int day)
+{
+	int day_tab[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
+	int i;
+	for(i=1;i<month;i++)
+	day+=day_tab[i];
+	 return(day);
+}
+int leap(int year)
+{
+	int t;
+	t=year%4==0&&year%100!=0||year%400==0;
+	return(t);
+}
+17:输入三个整数，按由小到大顺序输出
+#include<stdio.h>
+void main()
+{
+	int n1,n2,n3;
+	int *p1,*p2,*p3;
+	void swap(int *p1,int *p2);
+	scanf("%d,%d,%d",&n1,&n2,&n3);
+	p1=&n1;
+	p2=&n2;
+	p3=&n3;
+	if(n1>n2)
+		swap(p1,p2);
+	if(n1>n3)
+		swap(p1,p3);
+	if(n2>n3)
+		swap(p2,p3);
+	printf("now ,the order is: %d,%d,%d",n1,n2,n3);
+
+}
+void swap(int *p1,int *p2)
+{
+	int p;
+	p=*p1;
+	*p1=*p2;
+	*p2=p;
+}
+（2）#include<stdio.h>
+void main()
+{
+	int a,b,c;
+	int t;
+	printf("input 3 number:");
+	scanf("%d %d %d",&a,&b,&c);
+	if(a>b)
+	{ t=a;a=b;b=t;}
+	if(a>c)
+	{ t=a;a=c;c=t;}
+	if(b>c)
+	{ t=b;b=c;c=t;}
+	printf("%d,%d,%d\n",a,b,c);
+}
+18：输入三个字符串，按有小到大的顺序输出
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	void swap(char *,char *);
+	char str1[20],str2[20],str3[20];
+	gets(str1);
+	gets(str2);
+	gets(str3);
+	if(strcmp(str1,str2)>0)
+		swap(str1,str2);
+	if(strcmp(str1,str3)>0)
+		swap(str1,str3);
+	if(strcmp(str2,str3)>0)
+		swap(str2,str3);
+	printf("%s\n%s\n%s\n",str1,str2,str3);
+	return 0;
+}
+void swap(char *p1,char *p2)
+{
+	char p[20];
+	strcpy(p,p1);
+	strcpy(p1,p2);
+	strcpy(p2,p);
+}
+19:输入10个数，将最小的数与第一个数交换，把最大的数与最后一个交换；
+#include<stdio.h>
+int main()
+{
+	void input(int *);
+	void max_min_value(int *);
+	void output(int *);
+	int number[10];
+	input(number);
+	max_min_value(number);
+	output(number);
+	return 0;
+}
+void input(int *number)
+{
+	int i;
+	printf("input 10 numbers:");
+	for(i=0;i<10;i++)
+	scanf("%d",&number[i]);
+}
+void max_min_value(int *number)
+{
+	int *max,*min,*p,temp;
+	max=min=number;
+	for(p=number+1;p<number+10;p++)
+		if(*p>*max)
+		   max=p;
+		else if(*p<*min)
+		   min=p;
+		temp=number[0];
+		number[0]=*min;
+		*min=temp;
+       for(p=number+1;p<number+10;p++)
+		if(*p>*max)
+		  max=p;
+		temp=number[9];
+	        number[9]=*max;
+	        *max=temp;
+}
+void output(int *number)
+{
+	int *p;
+	printf("Now. they are: ");
+	for(p=number;p<number+10;p++)
+		printf("%d ",*p);
+	printf("\n");
+}
+
+20:N个人围成一圈，顺序排号，从第一人开始报数，凡是报到3的退出，问最后留下的是原来的第几号的那位
+#include<stdio.h>
+int main()
+{
+	int i,k,m,n,num[50],*p;
+	printf("\ninput number of person: n=");
+	scanf("%d",&n);
+	p=num;
+	for(i=0;i<n;i++)
+		*(p+i)=i+1;
+	i=0;
+	k=0;
+	m=0;
+	while(m<n-1)
+	{
+		if(*(p+i)!=0)
+			k++;
+		if(k==3)
+		{
+		  *(p+i)=0;
+                   k=0;
+		   m++;
+		}
+		i++;
+		if(i==n)
+		  i=0;
+	}
+	while (*p==0)
+		p++;
+	printf("the last one is No.%d\n",*p);
+	return 0;
+}
+21：求一个字符的长度
+#include<stdio.h>
+#include<string.h>
+void main()
+{
+	char str[10];
+	int n=0;
+	int i;
+	printf("请输入字符串:");
+	scanf("%s",&str);
+	for(i=0;str[i]!='\0';i++)
+            n++;
+		 printf("%d\n",n);
+}
+22：有一个字符串，将此字符串中从第M个字符开始的全部字符复制到另一个字符串
+#include<stdio.h>
+#include<string.h>
+void main()
+{
+   int m;
+   int n=0;
+  int i=0,j=0;
+  char str1[20],str2[20];
+  printf("input string:");
+  gets(str1);
+  printf("从第几个字符开始:");
+  scanf("%d",&m);
+  if(strlen(str1)<m)
+	  printf("input error\n!");
+  else
+  {	  while(n<m-1)
+	  {   n++;
+	      str1[i++];
+	  }
+	  while(str1[i]!='\0')
+	  {
+		 str2[j]=str1[i];
+		 i++;
+		 j++;
+	  }
+	  str2[j]='\0';
+  }
+	 printf("%s\n",str2);
+}
+
+23：输入一行文字，找出大写，小写，空格，数字，其他字符各多少
+#include<stdio.h>
+void main()
+{
+	int dx=0,xx=0,kg=0,sz=0,qt=0;
+	int i=0,j=0;
+	char s[20];
+	printf("input string:");
+	while((s[i]=getchar())!='\n')
+		i++;
+     while(s[j]!='\n')
+	 {
+		if((s[j]>='a')&&(s[j]<='z'))
+			xx++;
+		else if((s[j]>='A')&&(s[j]<='Z'))
+			dx++;
+		else if(s[j]==' ')
+			kg++;
+		else if((s[j]>='0')&&(s[j]<='9'))
+			 sz++;
+		else  qt++;
+		j++;
+	}
+printf("大写字母有%d,小写字母有%d,数字有%d,空格有%d,其他有%d\n",dx,xx,sz,kg,qt);
+
+}
+24：将一个5x5的矩阵中最大的元素放中间，4个角分别放4个最小的元素（顺序从左到右，从上到下存放）
+#include<stdio.h>
+int main()
+{
+	void change(int *p);
+	int a[5][5],*p,i,j;
+	printf("input matrix:\n");
+	for(i=0;i<5;i++)
+		for(j=0;j<5;j++)
+			scanf("%d",&a[i][j]);
+		p=&a[0][0];
+		change(p);
+		printf("Now,matrix:\n");
+	for(i=0;i<5;i++)
+	{	for(j=0;j<5;j++)
+			printf("%3d",a[i][j]);
+		printf("\n");
+	}
+	return 0;
+}
+void change(int *p)
+{
+	int i,j,temp;
+	int *pmax,*pmin;
+	pmax=p;
+	pmin=p;
+	for(i=0;i<5;i++)
+		for(j=0;j<5;j++)
+		{
+			if(*pmax<*(p+5*i+j))
+				pmax=p+5*i+j;
+			if(*pmin>*(p+5*i+j))
+				pmin=p+5*i+j;
+		}
+        temp=*(p+12);
+	  *(p+12)=*pmax;
+	  *pmax=temp; 
+	  temp=*p;
+	  *p=*pmin;
+	  *pmin=temp;
+	  pmin=p+1;
+      for(i=0;i<5;i++)
+	for(j=0;j<5;j++)
+	   if(((p+5*i+j)!=p)&&(*pmin>*(p+5*i+j)))
+		pmin=p+5*i+j;
+       temp=*pmin;
+	 *pmin=*(p+4);
+	  *(p+4)=temp;
+	  pmin=p+1;
+      for(i=0;i<5;i++)
+	for(j=0;j<5;j++)
+	   if(((p+5*i+j)!=p)&&((p+5*i+j)!=(p+4))&&(*pmin>*(p+5*i+j)))
+		pmin=p+5*i+j;
+       temp=*pmin;
+	 *pmin=*(p+20);
+	  *(p+20)=temp;
+      pmin=p+1;
+      for(i=0;i<5;i++)
+	 for(j=0;j<5;j++)
+	   if(((p+5*i+j)!=p)&&((p+5*i+j)!=(p+4))&&((p+5*i+j)!=(p+20))&&(*pmin>*(p+5*i+j)))
+	      pmin=p+5*i+j;
+       temp=*pmin;
+	 *pmin=*(p+24);
+	  *(p+24)=temp;
+ 
+}
+25：输入10个等长的字符串，并对他们排序
+#include<stdio.h>
+#include<string.h>
+int main()
+{  
+	void sort(char a[][6]);
+	int i;
+	char str[10][6];
+	printf("input 10 strings:\n");
+	for(i=0;i<10;i++)
+		scanf("%s",&str[i]);
+	sort(str);
+	printf("NOw.THE sequence is :\n");
+	for(i=0;i<10;i++)
+		printf("%s\n",str[i]);
+	return 0;
+}
+void sort(char a[10][6])
+{
+	int i,j;
+	char *p,temp[10];
+	p=temp;
+	for(i=0;i<9;i++)
+		for(j=0;j<9-i;j++)
+			if(strcmp(a[j],a[j+1])>0)
+			{
+				strcpy(p,a[j]);
+				strcpy(a[j],a[j+1]);
+				strcpy(a[j+1],p);
+			}
+}
+26：用指针数组处理不等长的字符串，并排序
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+  void sort(char *[]);
+  int i;
+  char *p[10],str[10][20];
+  for(i=0;i<10;i++)
+	  p[i]=str[i];
+  printf("input 10 strings:\n");
+  for(i=0;i<10;i++)
+	  scanf("%s",p[i]);
+  sort(p);
+  printf("Now,the sequence is :\n");
+  for(i=0;i<10;i++)
+	  printf("%s\n",p[i]);
+  return 0;
+
+}
+void sort(char *s[])
+{
+	int i,j;
+	char *temp;
+	for(i=0;i<9;i++)
+		for(j=0;j<9-i;j++)
+		{
+			if(strcmp(*(s+j),*(s+j+1))>0)
+			{
+				temp=*(s+j);
+				*(s+j)=*(s+j+1);
+				*(s+j+1)=temp;
+
+			}
+		}
+}
+27：将N个数逆序输出
+#include<stdio.h>
+int main()
+{
+	int i,n;
+	int a[10];
+	int t;
+	printf("input n:\n");
+	scanf("%d",&n);
+	printf("请输入10个数:\n");
+	for(i=0;i<n;i++)
+	scanf("%3d",&a[i]);
+	printf("原数组里的数为:\n");
+	for(i=0;i<10;i++)
+		printf("%3d",a[i]);
+	printf("\n");
+	for(i=0;i<n/2;i++)
+	{    t=a[i];
+	     a[i]=a[n-1-i];
+	     a[n-1-i]=t;
+	}
+   	for(i=0;i<10;i++)
+	printf("%3d",a[i]);
+ 	printf("\n");
+}
+28：有一个班4个学生，5门课程。1、求第一门课程的平均分  2、找出有两门以上课程不及格的学生，输出他们的学号和全部课程成绩，3、找出平均成绩在90分以上或全部课程成绩在85分以上的学生。分别编3个函数
+#include<stdio.h>
+int main()
+{
+	void avsco(float *,float *);
+	void avcour1(char (*)[10],float *);
+	void fail2(char course[5][10],int num[],float *pscoure,float aver[4]);
+	void good(char course[5][10],int num[4],float *pscoure,float aver[4]);
+	int i,j,*pnum,num[4];
+	float score[4][5],aver[4],*pscore,*paver;
+	char course[5][10],(*pcourse)[10];
+	printf("input course:\n");
+	pcourse=course;
+	for(i=0;i<5;i++)
+		scanf("%s",course[i]);
+	printf("input NO.and score\n");
+	printf("No.");
+	for(i=0;i<5;i++)
+		printf(",%s ",course[i]);
+	printf("\n"); 
+	pscore=&score[0][0];
+	pnum=&num[0];
+	for(i=0;i<4;i++)
+	{ scanf("%d",pnum+i);
+		for(j=0;j<5;j++)
+			scanf("%f",pscore+5*i+j);
+	}
+	paver=&aver[0];
+	printf("\n\n");
+	avsco(pscore,paver);
+	avcour1(pcourse,pscore);
+	printf("\n\n");
+	fail2(pcourse,pnum,pscore,paver);
+		printf("\n\n");
+		good(pcourse,pnum,pscore,paver);
+		return 0;
+}
+void avsco(float * pscore,float * paver)
+{
+	int i,j;
+	float average,sum;
+	for(i=0;i<4;i++)
+	{
+		sum=0.0;
+		for(j=0;j<5;j++)
+		sum+=(*(pscore+5*i+j));
+		average=sum/5;
+     	*(paver+i)=average;
+	}
+}
+void avcour1(char (* pcourse)[10],float * pscore)
+{   int i;
+	float sum,average1;
+	sum=0.0;
+	for(i=0;i<4;i++)
+     	sum+=(*(pscore+5*i));
+	 average1=sum/4;
+	printf("course 1:%s average score:%7.2f\n",* pcourse,average1);
+}
+void fail2(char course[5][10],int num[],float * pscore,float aver[4])
+{  int i,j;
+	int k;
+	printf("============student who is fail in two course===========\n");
+	printf("NO.");
+	for(i=0;i<5;i++)
+		printf("%11s",course[i]);
+	printf("  average\n");
+	for(i=0;i<4;i++)
+	{
+		k=0;
+		for(j=0;j<5;j++)
+			if(*(pscore+5*i+j)<60.0)
+				k++;
+			if(k>=2)
+			{
+				printf("%d",num[i]);
+				for(int t=0;t<5;t++)
+				printf("%11.2f",*(pscore+5*i+t));
+				printf("%11.2f\n",aver[i]);
+			}
+	}
+}
+
+void good(char course[5][10],int num[],float * pscore,float aver[4])
+{
+	int i,j,k,n;
+	printf("============student whose score is good ===========\n");
+	printf("NO.");
+	for(i=0;i<5;i++)
+	   printf("%11s",course[i]);
+	printf("   average\n");
+	for(i=0;i<4;i++)
+	{
+		n=0;
+		for(j=0;j<5;j++)
+			if(*(pscore+5*i+j)>85.0)
+				n++;
+			if((n==5)||(aver[i]>=90))
+			{
+				printf("%d",num[i]);
+				for(k=0;k<5;k++)
+                    	printf("%11.2f",*(pscore+5*i+k));
+			printf("%11.2f\n",aver[i]);
+			}
+	}
+}
+29：输入一个字符串，内有数字和非数字字符，将连续的数字作为一个整数，依次存入到数组a中
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char str[50];
+	int i,j=0,k;
+	int a[50],t=0;
+	int n=0;
+	int s,digit;
+	printf("input a string:\n");
+	gets(str);
+	for(i=0;i<strlen(str);i++)
+	{
+	   if(str[i]>='0'&&str[i]<='9')
+	        j++;
+	   else
+	   {
+	     if(j>0)
+	     {
+		digit=str[i-1]-48;
+		k=1;
+		while(k<j)
+		{ s=1;
+		 for(int m=1;m<=k;m++)
+		   s=s*10;
+		 digit+=(str[i-1-k]-48)*s;
+		    k++;
+		}
+		  a[t++]=digit;
+		  n++;
+		  j=0;
+	    }
+	 }
+	
+       }
+  if(j>0)
+  {
+      digit=str[i-1]-48;
+       k=1;
+       while(k<j)
+       {
+	  s=1;
+	  for(int m=1;m<=k;m++)
+	  s=s*10;
+	  digit+=(str[i-1-k]-48)*s;
+	  k++;
+	}
+	a[t++]=digit;
+	n++;
+	j=0;
+  }
+  printf("there are %d numbers in this line,they are :\n",n);
+	j=0;
+for(j=0;j<n;j++)
+   printf("%d ",a[j]);
+     printf("\n");
+	return 0;
+}
+30：编写函数，实现两个字符串的比较
+#include<stdio.h>
+#include<string.h>
+int main()
+{  int m;
+int fun(char str1[20],char str2[20]);
+char str1[20],str2[20];
+printf("input two strings:\n");
+gets(str1);
+gets(str2);
+m=fun(str1,str2);
+printf("result:%d,\n",m);
+	printf("\n");
+	return 0;
+}
+ int fun(char s1[20],char s2[20])
+{
+	int i=0,j=0;
+	while(s1[i]==s2[j])
+		i++;
+	       j++;
+	if(s1[i]=='\0')
+	return (0);
+	return (s1[i]-s2[j]);
+
+}
+31：输入月份号，输出该月的英文月名，用指针数组处理
+#include<stdio.h>
+int main()
+{ char *month[13]={"illegal month","January","February","March","April","May","June","July","August","September","October","November","December"};
+int n;
+printf("input month:\n");
+scanf("%d",&n);
+if((n<=12)&&(n>=1))
+printf("it is %s.\n",*(month+n));
+else 
+printf("it is wrong\n");
+return 0;
+
+}
+ 32：已知学生的记录由学号和学习成绩构成，输入N个学生的学号和成绩，找出成绩最低的学生记录，通过函数返回。
+#include<stdio.h>
+#include<malloc.h>
+#include<stdlib.h>
+struct StuMsg
+{
+	char no[10];
+	float score;
+};
+struct StuMsg *StuMsg_In(int num);
+struct StuMsg GetMinStuMsg(struct StuMsg *pstu,int num);
+void main()
+{
+	int num;
+	struct StuMsg *pstu,minstu;
+	printf("input student number:");
+	scanf("%d",&num);
+	pstu=StuMsg_In(num);
+	if(pstu==NULL)
+		exit(0);
+	minstu=GetMinStuMsg(pstu,num);
+	printf("the lowest score student record is:");
+	printf("No=%s score=%.2f\n",minstu.no,minstu.score);
+	free(pstu);
+}
+struct StuMsg *StuMsg_In(int num)
+{
+	int i;
+	struct StuMsg *p;
+	p=(struct StuMsg *)malloc (num * sizeof(struct StuMsg));
+	if(p==NULL)
+	{
+		printf("not enough memory!");
+		return (NULL);
+	}
+    for(i=0;i<num;i++)
+	{
+		printf("student %d:",i+1);
+		scanf("%s %f",&p[i].no,&p[i].score);
+	}
+	return (p);
+}
+struct StuMsg GetMinStuMsg(struct StuMsg *pstu,int num)
+{
+	int i,k;
+	k=0;
+	for(i=1;i<num;i++)
+	if(pstu[i].score<pstu[k].score)
+		k=i;
+	return (pstu[k]);
+}
+33：插入排序（数据结构）
+void InsertSort(SqLIST &L)
+{
+   for(i=2;i<=L.length;++i)
+     if(LT(L.r[i].key,L.r[i-1].key))
+    {
+        L.r[0]=L.r[i];
+        L.r[i]=L.r[i-1];
+   for(j=i-2;LT(L.r[0].key,L.r[j].key;--j);
+       L.r[j+1]=L.r[j];
+       L.r[j+1]=L.r[0];
+     }
+}
+34:用指向指针的指针的方法对5个字符串排序并输出
+#include<stdio.h>
+#include<string.h>
+#define linemax 20
+int main()
+{ void sort(char **p);
+  int i;
+  char **p,*pstr[5],str[5][linemax];
+  for(i=0;i<5;i++)
+  {
+	  pstr[i]=str[i];
+  }
+  printf("input 5 strings:\n");
+  for(i=0;i<5;i++)
+    scanf("%s",pstr[i]);
+  p=pstr;
+  sort(p);
+    printf("\nstrings sorted:\n");
+  for(i=0;i<5;i++)
+    printf("%s\n",pstr[i]);
+  return 0;
+}
+void sort(char **p)
+{
+     int i,j;
+      char *temp;
+   for(i=0;i<5;i++)
+	{ for(j=i+1;j<5;j++)
+	   {
+	      if(strcmp(*(p+i),*(p+j))>0)
+		  {
+			  temp=*(p+i);
+			  *(p+i)=*(p+j);
+			  *(p+j)=temp;
+		  }
+		  
+		}
+
+	}
+}
+
+
+
+36.树
+typedef struct BiTNode
+{
+	char data;
+	BiTNode *lchild,*rchild;
+}BiTNode,*BiTree;
+
+void createBiTree(BiTree *p)
+{
+	char c;
+	scanf("%c",&c);
+	if(c==' ')
+	{
+		*p=NULL;
+	}
+	else 
+	{
+		*p = (BiTree)malloc(sizeof(BiTNode));
+		(*p)->data = c;
+		createBiTree(&(*p)->lchild);
+		createBiTree(&(*p)->rchild);
+	}
+}
+
+void visit(char c,int level)
+{
+	printf("%c位于第%d层\n",c,level);
+}
+
+void preOrderTraverse(BiTree p,int level)
+{
+	if(p)
+	{
+		visit(p->data,level);
+		preOrderTraverse(p->lchild,++level);
+		preOrderTraverse(p->rchild,++level);
+	}
+}
+
+int main()
+{
+	BiTree T = NULL;
+	int level=1;
+	createBiTree(&T);
+	preOrderTraverse(T,level);
+	return 0;
+}
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <algorithm>
+using namespace std;
+/*
+    题目：排序
+    思路：1--n冒泡排序、选择排序、快排
+*/
+void bubbleSort(int a[],int n){
+    int t;
+    for (int i=0;i<n-1;i++){
+        for (int j=0;j<n-i-1;j++){
+            if (a[j]>a[j+1]){
+                t = a[j];
+                a[j] = a[j+1];
+                a[j+1] = t;
+            }
+        }
+    }
+}
+void selectSort(int a[],int n){
+    int k,t;
+    for (int i=0;i<n-1;i++){
+        k = i;
+        for (int j=i+1;j<n;j++){
+            if (a[j]<a[k]){
+                k = j;
+            }
+        }
+        if (k!=i){
+            t = a[k];
+            a[k] = a[i];
+            a[i] = t;
+        }
+    }
+}
+void Qsort(int a[],int low,int high){
+    if (low >= high)
+        return;
+
+    int first = low ;
+    int last = high ;
+    int key = a[first];
+    while (first < last){
+        while (first < last && a[last] >= key){
+            --last; // last先减一，再与first比较
+        }
+        a[first] = a[last];
+        while (first < last && a[first] <= key){
+            ++first;
+        }
+        a[last] = a[first];
+    }
+    a[first]=key; // 交换过程中key并没有交换，此时first/last之前的比key小，之后的比key大，递归调用
+    Qsort(a,low,first-1);
+    Qsort(a,first+1,high);
+
+}
+bool cmp(int x,int y){
+    return x>y;
+}
+void print(int a[],int n){
+    for (int i=0;i<n;i++)
+        cout << a[i] << ' ';
+    cout<<endl;
+}
+int main()
+{
+    int n,a[101];
+    while (cin >> n){
+        for (int i=0;i<n;i++)
+            cin >> a[i];
+        //bubbleSort(a,n);
+        //selectSort(a,n);
+        //sort(a,a+n);//内置快排升序算法，推荐使用
+        //sort(a,a+n,cmp);重载降序
+        Qsort(a,0,n-1);
+        print(a,n);
+
+    }
+    return 0;
+}
+
+
+#include <iostream>
+#include <algorithm>
+#include <string.h>
+using namespace std;
+/*
+    题目：成绩排序
+    思路：内置排序函数+重构cmp
+*/
+struct Stu{
+    char name[100];
+    // string name;
+    int age;
+    int grade;
+};
+bool cmp(Stu s1,Stu s2){
+    if (s1.grade != s2.grade)
+        return s1.grade < s2.grade;//成绩低的在前面
+    int tmp = strcmp(s1.name,s2.name);
+    // int tmp = s1.name - s2.name;
+    if (tmp != 0)
+        return tmp < 0; // 字典序小的在前面
+    return s1.age < s2.age;
+}
+void print(Stu s[],int n){
+    for (int i=0;i<n;i++)
+        cout << s[i].name << ' '<<s[i].age<<' '<<s[i].grade<<endl;
+
+}
+int main()
+{
+    int n;
+    Stu s[1001];
+    while (cin >> n){
+        for (int i=0;i<n;i++)
+            cin >> s[i].name>>s[i].age>>s[i].grade;
+        sort(s,s+n,cmp);
+        print(s,n);
+    }
+
+
+    return 0;
+}
